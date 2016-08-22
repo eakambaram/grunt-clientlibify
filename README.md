@@ -86,6 +86,14 @@ A boolean value that is used to indicate whether the generated CRX package shoul
 and installed onto an AEM instance.
 > If set to `true`, the `options.deploy*` options must be provided.
 
+#### options.noZip
+Type: `Boolean`
+Default value: `false`
+
+A boolean value that is used to indicate whether the generated clientlib should be
+packaged into a CRX zip package or left unzipped.
+> If set to `true`, the `options.installPackage` option will be ignored.
+
 #### options.categories
 Type: `Array`
 Default value: `['etc-clientlibify']`

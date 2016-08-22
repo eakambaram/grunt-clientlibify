@@ -154,32 +154,45 @@ module.exports = function (grunt) {
 
     var done = this.async();
 
-    grunt.log.subhead('Creating CRX package');
-    zipDirectory(directoriesToZip, zipFileLocation, function() {
-      // only install the CRX package if the `installPackage` option
-      // was set to `true`
-      if(options.installPackage) {
-        grunt.log.subhead('Installing CRX package');
-        installPackage(zipFileLocation, function(err, httpResponse, body) {
-          if(typeof httpResponse == 'undefined') {
-            grunt.log.error('Upload failed');
-            done(false);
-            return;
-          } else if (httpResponse.statusCode !== 200) {
-            grunt.log.error('Upload failed: ', httpResponse.statusCode + ' - ' + httpResponse.statusMessage);
-            done(false);
-            return;
-          }
-          grunt.verbose.writeln('Server responded with:');
-          grunt.verbose.writeln(body);
-          grunt.log.ok('CRX package uploaded successfully!');
-
-          done();
+    if(options.noZip) {
+      directoriesToZip.forEach(function(item){
+        // find and copy all files and .content.xml files
+        var files = grunt.file.expand([item.src + "/**/*.*", item.src + "/**/.*.*"]);
+        files.forEach(function(file) {
+          var relativeFilePath = file.split(item.dest),
+            destFilePath = path.join(options.dest, options.packageName, item.dest, relativeFilePath[1]);
+          grunt.file.copy(file, destFilePath);
         });
-      } else {
-        done();
-      }
-    });
+      });
+      done();
+    } else {
+      grunt.log.subhead('Creating CRX package');
+      zipDirectory(directoriesToZip, zipFileLocation, function() {
+        // only install the CRX package if the `installPackage` option
+        // was set to `true`
+        if(options.installPackage) {
+          grunt.log.subhead('Installing CRX package');
+          installPackage(zipFileLocation, function(err, httpResponse, body) {
+            if(typeof httpResponse == 'undefined') {
+              grunt.log.error('Upload failed');
+              done(false);
+              return;
+            } else if (httpResponse.statusCode !== 200) {
+              grunt.log.error('Upload failed: ', httpResponse.statusCode + ' - ' + httpResponse.statusMessage);
+              done(false);
+              return;
+            }
+            grunt.verbose.writeln('Server responded with:');
+            grunt.verbose.writeln(body);
+            grunt.log.ok('CRX package uploaded successfully!');
+
+            done();
+          });
+        } else {
+          done();
+        }
+      });
+    }
 
     /*****************************
      *    UTILITY FUNCTIONS      *

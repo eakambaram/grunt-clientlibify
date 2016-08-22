@@ -110,6 +110,46 @@ exports.clientlibify = {
       test.done();
     });
   },
+  no_zip_options: function(test) {
+    test.expect(1);
+
+    var folder = path.join('tmp', 'aem-styleguide-no-zip');
+    var expected = [
+      "META-INF/vault/",
+      "META-INF/vault/filter.xml",
+      "META-INF/vault/properties.xml",
+      "jcr_root/.content.xml",
+      "jcr_root/etc/",
+      "jcr_root/etc/.content.xml",
+      "jcr_root/etc/designs/",
+      "jcr_root/etc/designs/.content.xml",
+      "jcr_root/etc/designs/styleguide/",
+      "jcr_root/etc/designs/styleguide/.content.xml",
+      "jcr_root/etc/designs/styleguide/clientlibs/",
+      "jcr_root/etc/designs/styleguide/clientlibs/.content.xml",
+      "jcr_root/etc/designs/styleguide/clientlibs/css/",
+      "jcr_root/etc/designs/styleguide/clientlibs/css/buttons/",
+      "jcr_root/etc/designs/styleguide/clientlibs/css/buttons/buttons.css",
+      "jcr_root/etc/designs/styleguide/clientlibs/css/test.css",
+      "jcr_root/etc/designs/styleguide/clientlibs/css/test2.less",
+      "jcr_root/etc/designs/styleguide/clientlibs/css.txt",
+      "jcr_root/etc/designs/styleguide/clientlibs/js/",
+      "jcr_root/etc/designs/styleguide/clientlibs/js/test.js",
+      "jcr_root/etc/designs/styleguide/clientlibs/js.txt"
+    ];
+    // add trailing slash to folders
+    // add *.* file patterns
+    // add .*.* file patterns
+    // remove any files with trailing slashes
+    var actual = grunt.file.expand({cwd:folder},['**/*/*/', '**/*/*.*', '**/*/.*.*', '!**/*/*.*/']);
+
+    actual.sort();
+    expected.sort();
+    // assert contents of folder files
+    test.deepEqual(actual, expected, 'folder should contain all of the expected files');
+
+    test.done();
+  },
   css_only_options: function(test) {
     test.expect(1);
 

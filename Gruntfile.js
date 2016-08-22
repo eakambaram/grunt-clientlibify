@@ -51,6 +51,21 @@ module.exports = function(grunt) {
           packageDescription: 'This package contains our mighty styleguide!'
         }
       },
+      // No zip file created
+      no_zip_options: {
+        options: {
+          cssDir: 'test/fixtures/css',
+          jsDir: 'test/fixtures/js',
+          categories: ['styleguide'],
+          noZip: true,
+          embed: [],
+          dependencies: ['cq-jquery'],
+          packageName: 'aem-styleguide-no-zip',
+          packageVersion: '2.1',
+          packageGroup: 'My Company',
+          packageDescription: 'This package contains our mighty styleguide!'
+        }
+      },
       // Generate a CSS only clientlib
       css_only_options: {
         options: {
@@ -112,6 +127,7 @@ module.exports = function(grunt) {
     'clean',
     'clientlibify:default_options',
     'clientlibify:custom_package_options',
+    'clientlibify:no_zip_options',
     'clientlibify:css_only_options',
     'clientlibify:js_only_options',
     'clientlibify:extra_assets_options',
