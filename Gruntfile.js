@@ -80,6 +80,15 @@ module.exports = function(grunt) {
           packageName: 'js-styleguide'
         }
       },
+      css_js_patterns_options: {
+        options: {
+          jsDir: 'test/fixtures/js',
+          cssDir: 'test/fixtures/css',
+          jsFilePatterns: ['*.js', '*.txt'],
+          cssFilePatterns: ['*.css', '*.less', '*.txt'],
+          packageName: 'css-js-patterns-styleguide'
+        }
+      },
       // Deploys the CRX package to a local AEM instance
       deploy_options: {
         options: {
@@ -130,6 +139,7 @@ module.exports = function(grunt) {
     'clientlibify:no_zip_options',
     'clientlibify:css_only_options',
     'clientlibify:js_only_options',
+    'clientlibify:css_js_patterns_options',
     'clientlibify:extra_assets_options',
     'nodeunit'
   ]);

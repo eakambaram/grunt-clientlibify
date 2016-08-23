@@ -39,6 +39,8 @@ module.exports = function (grunt) {
       categories: ['etc-clientlibify'],
       embed: [],
       dependencies: [],
+      jsFilePatterns: ['*.js'],
+      cssFilePatterns: ['*.css', '*.less'],
       packageName: 'clientlibify',
       packageVersion: '1.0',
       packageGroup: 'my_packages',
@@ -101,13 +103,13 @@ module.exports = function (grunt) {
     // create css directory
     if (options.cssDir) {
       grunt.log.subhead('Processing CSS directory');
-      generateClientLibrarySection('css', options.cssDir, ['*.css', '*.less']);
+      generateClientLibrarySection('css', options.cssDir, options.cssFilePatterns);
     }
 
     // create js directory
     if (options.jsDir) {
       grunt.log.subhead('Processing Javascript directory');
-      generateClientLibrarySection('js', options.jsDir, ['*.js']);
+      generateClientLibrarySection('js', options.jsDir, options.jsFilePatterns);
     }
 
     // transfer other assets (images, fonts, etc)

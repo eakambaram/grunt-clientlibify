@@ -58,11 +58,25 @@ Type: `String`
 A string value that is used to indicate where the `.css` or `.less` files should be fetched from.
 This would likely be the path to your `css` directory. For example, `dist/css`.
 
+#### options.cssFilePatterns
+Type: `Array`
+Default value: `['*.css', '*.less']`
+
+An optional Array of file patterns used to determine which files from the cssDir should be
+included in the package.
+
 #### options.jsDir
 Type: `String`
 
 A string value that is used to indicate where the `.js` files should be fetched from.
 This would likely be the path to your `js` directory. For example, `dist/js`.
+
+#### options.jsFilePatterns
+Type: `Array`
+Default value: `['*.js']`
+
+An optional Array of file patterns used to determine which files from the jsDir should be
+included in the package.
 
 #### options.assetsDirs
 Type: `Array`
