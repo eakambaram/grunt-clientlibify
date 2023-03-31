@@ -38,6 +38,7 @@ module.exports = function (grunt) {
       installPackage: false,
       categories: ['etc-clientlibify'],
       embed: [],
+      cssProcessor : [],
       dependencies: [],
       jsFilePatterns: ['*.js'],
       cssFilePatterns: ['*.css', '*.less'],
